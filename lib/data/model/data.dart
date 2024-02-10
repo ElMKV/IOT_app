@@ -35,14 +35,14 @@ class Data {
 
 @JsonSerializable()
 class DataIot {
-  @JsonKey(name: 'name')
-  final String name;
-  @JsonKey(name: 'country')
-  final String country;
+  @JsonKey(name: 'temp')
+  final int temp;
+  @JsonKey(name: 'lampIsActive')
+  final bool lampIsActive;
 
   const DataIot({
-    this.name = '',
-    this.country = '',
+    this.temp = 0,
+    this.lampIsActive = false,
   });
 
   factory DataIot.fromJson(Map<String, dynamic> json) => _$DataIotFromJson(json);
@@ -50,12 +50,12 @@ class DataIot {
   Map<String, dynamic> toJson() => _$DataIotToJson(this);
 
   DataIot copyWith({
-    String? name,
-    String? country,
+    int? temp,
+    bool? lampIsActive,
   }) {
     return DataIot(
-      name: name ?? this.name,
-      country: country ?? this.country,
+      temp: temp ?? this.temp,
+      lampIsActive: lampIsActive ?? this.lampIsActive,
     );
   }
 }

@@ -17,11 +17,11 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
     };
 
 DataIot _$DataIotFromJson(Map<String, dynamic> json) => DataIot(
-      name: json['name'] as String? ?? '',
-      country: json['country'] as String? ?? '',
+      temp: json['temp'] as int? ?? 0,
+      lampIsActive: json['lampIsActive'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$DataIotToJson(DataIot instance) => <String, dynamic>{
-      'name': instance.name,
-      'country': instance.country,
+      'temp': instance.temp,
+      'lampIsActive': instance.lampIsActive,
     };
