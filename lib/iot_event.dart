@@ -3,7 +3,6 @@ part of 'iot_bloc.dart';
 @immutable
 abstract class IotEvent {}
 
-
 class DataGetEvent extends IotEvent {
   DataGetEvent();
 }
@@ -15,10 +14,14 @@ class DataUpdateEvent extends IotEvent {
   DataUpdateEvent(this.temp, this.lampIsActive);
 }
 
-
 class TempEditUp extends IotEvent {
   TempEditUp();
 }
+
 class TempEditDown extends IotEvent {
   TempEditDown();
+}
+
+class LampInvert extends IotEvent {
+  LampInvert();
 }

@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
                     children: [
                       const Text('Температура установлена на'),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(onPressed: () {
                             context
@@ -62,8 +63,12 @@ class MyApp extends StatelessWidget {
                           ),),
                         ],
                       ),
-                      IconButton(onPressed: () => {}, icon: state.pageState.icon,iconSize: 80,),
-                      Text(state.pageState.data.data.lampIsActive
+                      IconButton(onPressed: () => {
+                        context
+                            .read<IotBloc>()
+                            .add(LampInvert())
+                      }, icon: state.pageState.icon,iconSize: 80,),
+                      Text(state.pageState.lampIsActive
                           ? 'Лампа включена'
                           : 'Лампа выключена'),
                       TextButton(onPressed: () => {

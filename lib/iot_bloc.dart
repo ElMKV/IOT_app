@@ -15,37 +15,36 @@ class IotBloc extends Bloc<IotEvent, IotState> {
   IotBloc() : super(DataInitial(PageState())) {
     emit(DataLoadingState(state.pageState));
     GetData();
-    on<IotEvent>((event, emit) {
-
-    });
+    on<IotEvent>((event, emit) {});
 
     on<DataUpdateEvent>((event, emit) async {
-      print('update event ${state.pageState.temp} ${event.lampIsActive}');
+      print('update event ${state.pageState.temp} ${state.pageState.lampIsActive}');
 
-      await UpdateData(state.pageState.temp, event.lampIsActive);
+      await UpdateData(state.pageState.temp, state.pageState.lampIsActive);
       await GetData();
-
-
     });
 
     on<TempEditUp>((event, emit) {
-      emit(DataUpState(state.pageState.copyWith(
-          temp: state.pageState.temp + 1)));
+      emit(DataUpState(
+          state.pageState.copyWith(temp: state.pageState.temp + 1)));
 
       print('TempEditUp ${state.pageState.temp}');
-
-
-
     });
 
     on<TempEditDown>((event, emit) {
-      emit(DataUpState(state.pageState.copyWith(
-          temp: state.pageState.temp - 1)));
+      emit(DataUpState(
+          state.pageState.copyWith(temp: state.pageState.temp - 1)));
 
       print('TempEditUp ${state.pageState.temp}');
+    });
+    on<LampInvert>((event, emit) {
 
+      print('Lamp status');
 
+      emit(DataUpState(
+          state.pageState.copyWith(lampIsActive: !state.pageState.lampIsActive)));
 
+      print('TempEditUp ${state.pageState.temp}');
     });
   }
 
@@ -57,11 +56,10 @@ class IotBloc extends Bloc<IotEvent, IotState> {
         print(value.data.temp);
         if (value.data.lampIsActive) {
           emit(DataUpState(state.pageState.copyWith(
-            icon: Icon(
-              Icons.flashlight_on_outlined,
-            ),
-            temp: value.data.temp
-          )));
+              icon: Icon(
+                Icons.flashlight_on_outlined,
+              ),
+              temp: value.data.temp, lampIsActive: value.data.lampIsActive)));
         } else {
           emit(DataUpState(state.pageState.copyWith(
               icon: Icon(
@@ -80,9 +78,6 @@ class IotBloc extends Bloc<IotEvent, IotState> {
 
   Future<void> UpdateData(int temp, bool lampIsActive) async {
     DataRepository dataRepository = DataRepository();
-    await dataRepository.updateData(temp, lampIsActive).then((value) async {
-
-    });
+    await dataRepository.updateData(temp, lampIsActive).then((value) async {});
   }
-
 }
